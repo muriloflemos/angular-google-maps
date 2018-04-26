@@ -51,8 +51,20 @@ export class MarkerManager {
     return this._markers.get(marker).then((m: Marker) => m.setIcon(marker.iconUrl));
   }
 
+  updateIconAnchorX(marker: AgmMarker): Promise<void> {
+    return this._markers.get(marker).then((m: Marker) => m.setIconAnchorX(marker.iconAnchorX));
+  }
+
+  updateIconAnchorY(marker: AgmMarker): Promise<void> {
+    return this._markers.get(marker).then((m: Marker) => m.setIconAnchorY(marker.iconAnchorY));
+  }
+
   updateOpacity(marker: AgmMarker): Promise<void> {
     return this._markers.get(marker).then((m: Marker) => m.setOpacity(marker.opacity));
+  }
+
+  updateOptimized(marker: AgmMarker): Promise<void> {
+    return this._markers.get(marker).then((m: Marker) => m.setOptimized(marker.optimized));
   }
 
   updateVisible(marker: AgmMarker): Promise<void> {
@@ -82,8 +94,12 @@ export class MarkerManager {
       position: {lat: marker.latitude, lng: marker.longitude},
       label: marker.label,
       draggable: marker.draggable,
-      icon: marker.iconUrl,
+      icon: {
+        url: marker.iconUrl,
+        anchor: new google.maps.Point(marker.iconAnchorX, marker.iconAnchorY)
+      },
       opacity: marker.opacity,
+      optimized: marker.optimized,
       visible: marker.visible,
       zIndex: marker.zIndex,
       title: marker.title,

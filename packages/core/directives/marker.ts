@@ -74,6 +74,8 @@ export class AgmMarker implements OnDestroy, OnChanges, AfterContentInit {
    * Icon (the URL of the image) for the foreground.
    */
   @Input() iconUrl: string;
+  @Input() iconAnchorX: number = 0;
+  @Input() iconAnchorY: number = 0;
 
   /**
    * If true, the marker is visible
@@ -89,6 +91,11 @@ export class AgmMarker implements OnDestroy, OnChanges, AfterContentInit {
    * The marker's opacity between 0.0 and 1.0.
    */
   @Input() opacity: number = 1;
+
+  /**
+   * Optimization renders many markers as a single static element. Optimized rendering is enabled by default. Disable optimized rendering for animated GIFs or PNGs, or when each marker must be rendered as a separate DOM element (advanced usage only).
+   */
+  @Input() optimized: boolean = true;
 
   /**
    * All markers are displayed on the map in order of their zIndex, with higher values displaying in
@@ -182,8 +189,17 @@ export class AgmMarker implements OnDestroy, OnChanges, AfterContentInit {
     if (changes['iconUrl']) {
       this._markerManager.updateIcon(this);
     }
+    if (changes['anchorPointX']) {
+      this._markerManager.updateIconAnchorX(this);
+    }
+    if (changes['anchorPointY']) {
+      this._markerManager.updateIconAnchorY(this);
+    }
     if (changes['opacity']) {
       this._markerManager.updateOpacity(this);
+    }
+    if (changes['optimized']) {
+      this._markerManager.updateOptimized(this);
     }
     if (changes['visible']) {
       this._markerManager.updateVisible(this);

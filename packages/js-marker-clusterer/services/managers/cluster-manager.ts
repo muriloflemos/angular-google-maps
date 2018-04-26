@@ -40,8 +40,11 @@ export class ClusterManager extends MarkerManager {
         },
         label: marker.label,
         draggable: marker.draggable,
-        icon: marker.iconUrl,
+        icon: {
+          url: marker.iconUrl
+        },
         opacity: marker.opacity,
+        optimized: marker.optimized,
         visible: marker.visible,
         zIndex: marker.zIndex,
         title: marker.title,
